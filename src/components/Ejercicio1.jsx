@@ -19,7 +19,7 @@ function Ejercicio1() {
 
     return (
         <div>
-            <button onClick={handleClick} style={{ backgroundColor: colorButton }} >{`${counter} like`}</button>
+            <button onClick={handleClick} style={{ backgroundColor: colorButton, padding: '20px', fontSize:'18px' }} >{`${counter} like`}</button>
         </div>
     )
 }
