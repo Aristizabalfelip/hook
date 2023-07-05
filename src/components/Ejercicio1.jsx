@@ -3,30 +3,25 @@ import React, { useEffect, useState } from 'react'
 function Ejercicio1() {
     const colors = ['purple', 'blue', 'green', 'yellow', 'orange', 'red'];
     const [counter, setCounter] = useState(0)
-    const [colorButton, setColorButton] = useState(0)
+    const [colorButton, setColorButton] = useState('red')
 
 
     const handleClick = () => {
         setCounter(prev => prev += 1)
-           
     }
-    // const changeColor = () => {
-    //     currentColorIndex++;
-    //     if (currentColorIndex === colors.length) {
-    //         currentColorIndex = 0;
-    //       }
-    //     return colors[currentColorIndex];
-    // }
+   
 
-
+    useEffect(() => {
+        setColorButton(() => {
+            return colors[Math.floor(Math.random() * colors.length)]
+        })
+    }, [counter])
 
     return (
         <div>
-            <button onClick={handleClick} style={{ backgroundColor: `${changeColor()}` }} >{`${counter} like`}</button>
+            <button onClick={handleClick} style={{ backgroundColor: colorButton }} >{`${counter} like`}</button>
         </div>
     )
 }
 
 export default Ejercicio1
-
-// style={{ backgroundColor: `${changeColor}` }}
