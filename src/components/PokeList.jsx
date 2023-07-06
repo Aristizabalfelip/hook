@@ -1,20 +1,63 @@
-import React, { useEffect } from 'react'
-const linkPokeApi = 'https://pokeapi.co/api/v2/pokemon/'
+import React, { useEffect, useState } from 'react'
+import PokeCard from './PokeCard';
+const linkPokePika = 'https://pokeapi.co/api/v2/pokemon/pikachu'
+const linkPokemons = 'https://pokeapi.co/api/v2/pokemon/'
+
 function PokeList() {
 
-  const getDataPokemons = async (link) => {
-    const res = await fetch(link)
-    const data = await res.json();
-    console.log(data);
+  const [dataPika, setDataPika] = useState(null)
+  const [dataPokemons, setDataPokemons] = useState(null)
+
+  console.log(dataPokemons);
+
+  const getDataPokemons = async (linkPika, linkPokemons) => {
+
+    const resPika = await fetch(linkPika)
+    const dataPika = await resPika.json();
+
+    const resPokemons = await fetch(linkPokemons)
+    const dataPokemons = await resPokemons.json();
+
+    const promise = await Promise.all(
+      dataPokemons.results.map(async (pokemons) => {
+
+        const resPokemons = await fetch(pokemons.url)
+        const dataPokemons = await resPokemons.json()
+        return dataPokemons
+      }
+      )
+
+    )
+    setDataPika(dataPika)
+    setDataPokemons(promise)
   }
 
-
   useEffect(() => {
-    getDataPokemons(linkPokeApi);
-  })
+    getDataPokemons(linkPokePika, linkPokemons)
+  }, [])
 
   return (
-    <div></div>
+    <>
+      <div>
+        {
+          dataPika && < PokeCard
+            id={dataPika.id}
+            img={dataPika.sprites.front_default}
+            name={dataPika.name}
+          />
+        }
+      </div>
+      <div>
+        {
+          dataPokemons?.map((pokemons) => {
+            return < PokeCard
+              id={pokemons.id}
+              img={pokemons.sprites.front_default}
+              name={pokemons.name}/>
+        })
+        }
+      </div>
+    </>
   )
 }
 
