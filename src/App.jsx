@@ -1,3 +1,4 @@
+import ComponentApp from "./components/ComponentApp";
 import Ejercicio1 from "./components/Ejercicio1";
 import ParentComponent from "./components/ParentComponent";
 import PokeList from "./components/PokeList";
@@ -12,6 +13,8 @@ function App() {
     <ParentComponent />
     <hr />
     <PokeList/>
+    <hr />
+    < ComponentApp />
     </div>
   );
 }

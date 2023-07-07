@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react'
 import PokeCard from './PokeCard';
 const linkPokePika = 'https://pokeapi.co/api/v2/pokemon/pikachu'
 
+
 function PokeList() {
 
   const [dataPika, setDataPika] = useState(null)
@@ -32,7 +33,6 @@ function PokeList() {
   useEffect(() => {
     getDataPokemons(linkPokePika, linkAllPokemons)
   }, [offset])
-
 
   const handleClick = () => {
     setOffset(prev => prev += 10)
