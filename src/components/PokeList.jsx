@@ -1,16 +1,15 @@
 import React, { useEffect, useState } from 'react'
 import PokeCard from './PokeCard';
 const linkPokePika = 'https://pokeapi.co/api/v2/pokemon/pikachu'
-const linkPokemons = 'https://pokeapi.co/api/v2/pokemon/'
 
 function PokeList() {
 
   const [dataPika, setDataPika] = useState(null)
   const [dataPokemons, setDataPokemons] = useState(null)
-
+  const [offset, setOffset] = useState(20)
+  const linkAllPokemons = `https://pokeapi.co/api/v2/pokemon?limit=${offset}&offset=0`
 
   const getDataPokemons = async (linkPika, linkPokemons) => {
-
     const resPika = await fetch(linkPika)
     const dataPika = await resPika.json();
 
@@ -25,21 +24,19 @@ function PokeList() {
         return dataPokemons
       }
       )
-
     )
     setDataPika(dataPika)
     setDataPokemons(promise)
   }
 
   useEffect(() => {
-    getDataPokemons(linkPokePika, linkPokemons)
-    
-    
-  }, [])
+    getDataPokemons(linkPokePika, linkAllPokemons)
+  }, [offset])
 
-  const handleClick = (id) => {
-  console.log('Hola', id);
-}
+
+  const handleClick = () => {
+    setOffset(prev => prev += 10)
+  }
 
   return (
     <>
@@ -53,19 +50,23 @@ function PokeList() {
         }
       </div>
       <hr />
+      <div>
+        <button onClick={handleClick}>Give me more!!</button>
+      </div>
       <br />
       <div style={{ display: 'flex', flexWrap: ' wrap', gap: '10px' }}>
         {
-          dataPokemons?.map((pokemons) => {
+          dataPokemons?.sort((a,b) => b.id-a.id).map((pokemons) => {
             return <div style={{
-              backgroundColor:`${pokemons.id % 2 === 0 ? "#FA8072" : "#057f8d"}`,
+              backgroundColor: `${pokemons.id % 2 === 0 ? "#FA8072" : "#057f8d"}`,
               padding: '8px', borderRadius: '8px'
             }}>
               < PokeCard
+                setDataPokemons={setDataPokemons}
                 id={pokemons.id}
                 img={pokemons.sprites.front_default}
                 name={pokemons.name}
-                handleClick={handleClick} />
+              />
             </div>
           })
         }
