@@ -8,7 +8,6 @@ function PokeList() {
   const [dataPika, setDataPika] = useState(null)
   const [dataPokemons, setDataPokemons] = useState(null)
 
-  console.log(dataPokemons);
 
   const getDataPokemons = async (linkPika, linkPokemons) => {
 
@@ -34,7 +33,13 @@ function PokeList() {
 
   useEffect(() => {
     getDataPokemons(linkPokePika, linkPokemons)
+    
+    
   }, [])
+
+  const handleClick = (id) => {
+  console.log('Hola', id);
+}
 
   return (
     <>
@@ -47,14 +52,22 @@ function PokeList() {
           />
         }
       </div>
-      <div>
+      <hr />
+      <br />
+      <div style={{ display: 'flex', flexWrap: ' wrap', gap: '10px' }}>
         {
           dataPokemons?.map((pokemons) => {
-            return < PokeCard
-              id={pokemons.id}
-              img={pokemons.sprites.front_default}
-              name={pokemons.name}/>
-        })
+            return <div style={{
+              backgroundColor:`${pokemons.id % 2 === 0 ? "#FA8072" : "#057f8d"}`,
+              padding: '8px', borderRadius: '8px'
+            }}>
+              < PokeCard
+                id={pokemons.id}
+                img={pokemons.sprites.front_default}
+                name={pokemons.name}
+                handleClick={handleClick} />
+            </div>
+          })
         }
       </div>
     </>
