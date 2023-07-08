@@ -8,13 +8,13 @@ import PokeList from "./components/PokeList";
 function App() {
   return (
     <div className="App">
-    <Ejercicio1 />
-    <hr />
-    <ParentComponent />
-    <hr />
-    <PokeList/>
-    <hr />
-    < ComponentApp />
+      <Ejercicio1 />
+      <hr />
+      <ParentComponent />
+      <hr />
+      <PokeList />
+      <hr />
+      < ComponentApp />
     </div>
   );
 }

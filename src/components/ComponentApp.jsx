@@ -5,7 +5,7 @@ import JokeList from './JokeList'
 
 const getData = async (url) => {
     const res = await fetch(url, {
-        headers: {"Accept": "application/json"}
+        headers: { "Accept": "application/json" }
     })
     return res.json()
 }
@@ -15,13 +15,18 @@ function ComponentApp() {
     const [categories, setCategories] = useState(['house', 'door', 'cat', 'dad'])
     const [categorySearch, setCategorySearch] = useState('house')
     const [listJoke, setListJoke] = useState([])
+    const [loading, setLoading] = useState(true)
 
     const awaitFunction = async (link) => {
         const joke = await getData(link)
-        setListJoke(joke.results)  
+        setListJoke(joke.results)
+        setTimeout(() => {
+            setLoading(false)
+        }, 200);
     }
 
     useEffect(() => {
+        setLoading(true)
         awaitFunction(`https://icanhazdadjoke.com/search?term=${categorySearch}`)
     }, [categorySearch])
 
@@ -31,23 +36,23 @@ function ComponentApp() {
 
     return (
         <>
-        <div style={{display:'flex', gap:'80px', justifyContent:'center' }}>
-            {
-                categories.map((category) => {
-                    return <div >
-                        <ButtonsJokes
-                            category={category}
-                            handleClick = {handleClick}
-                            categorySearch = {categorySearch} />
-                    </div>
-                })
-            }
-        </div>
-        <div>
-        <JokeList list = {listJoke} />
-        </div>
+            <div style={{ display: 'flex', gap: '80px', justifyContent: 'center' }}>
+                {
+                    categories.map((category) => {
+                        return <div >
+                            <ButtonsJokes
+                                category={category}
+                                handleClick={handleClick}
+                                categorySearch={categorySearch} /> </div>
+                    })}
+            </div>
+            <div>
+                <JokeList
+                    list={listJoke}
+                    loading={loading}
+                />
+            </div>
         </>
     )
-   
 }
 export default ComponentApp

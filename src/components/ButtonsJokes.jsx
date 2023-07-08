@@ -12,7 +12,6 @@ function ButtonsJokes({ category, handleClick, categorySearch }) {
       return '🧔‍♂️'
     }}
 
- 
     return (
       <>
         <div>

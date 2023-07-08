@@ -6,8 +6,6 @@ function Button({handleClick}) {
         setColor(prev => !prev)
         handleClick()
     } 
-
-
   return (
     <button onClick={handelClick} style={{padding:'15px', border:'none', backgroundColor:'transparent',  fontSize: '2em'}}>{color ? "🌙" : "☀️"}</button>
     )
