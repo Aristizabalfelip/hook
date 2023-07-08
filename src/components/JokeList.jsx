@@ -1,8 +1,18 @@
 import React from 'react'
+import JokeCard from './JokeCard'
 
-function JokeList() {
+function JokeList({list}) {
   return (
-    <div>JokeList</div>
+    <div style={{display:'flex',flexDirection:'column', alignItems:'center'}}>
+      
+     {
+      list.map((joke) => {
+        return < JokeCard 
+        joke ={joke.joke}
+        />
+      })
+     }
+    </div>
   )
 }
 

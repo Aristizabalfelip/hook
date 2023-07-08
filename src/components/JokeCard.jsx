@@ -1,9 +1,13 @@
 import React from 'react'
 
-function JokeCArd() {
+function JokeCard({joke}) {
   return (
-    <div>JokeCArd</div>
+    <div style={{width:'60%'}} >
+      <p style={{borderRadius:'8px',backgroundColor:'#e8ffe3',
+      padding:'8px'
+    }}>{joke}🤣</p>
+    </div>
   )
 }
 
-export default JokeCArd
+export default JokeCard
